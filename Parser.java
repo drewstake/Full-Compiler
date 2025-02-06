@@ -10,6 +10,7 @@ public class Parser
     public static final int NUM        = 17;    // number
     public static final int ID         = 18;    // identifier
     public static final int PRINT      = 19;    // print
+    
     // add additinoal token types
 
     Compiler         compiler;
