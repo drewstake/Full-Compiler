@@ -1,10 +1,11 @@
-"C:\Program Files\Java\jdk-13.0.2\bin\javac.exe" *.java
+"C:\Program Files\Java\jdk-17.0.2\bin\javac.exe" *.java
 
-"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" Program test1.minc > testsolu1.txt
-"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" Program test2.minc > testsolu2.txt
-"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" Program test3.minc > testsolu3.txt
-"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" Program test4.minc > testsolu4.txt
-"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" Program test5.minc > testsolu5.txt
-"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" Program test6.minc > testsolu6.txt
-"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" Program test7.minc > testsolu7.txt
-"C:\Program Files\Java\jdk-13.0.2\bin\java.exe" Program test8.minc > testsolu8.txt
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test0.minc" > "solutions\testsolu0.txt"
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test1.minc" > "solutions\testsolu1.txt"
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test2.minc" > "solutions\testsolu2.txt"
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test3.minc" > "solutions\testsolu3.txt"
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test4.minc" > "solutions\testsolu4.txt"
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test5.minc" > "solutions\testsolu5.txt"
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test6.minc" > "solutions\testsolu6.txt"
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test7.minc" > "solutions\testsolu7.txt"
+"C:\Program Files\Java\jdk-17.0.2\bin\java.exe" Program "tests\test8.minc" > "solutions\testsolu8.txt"
