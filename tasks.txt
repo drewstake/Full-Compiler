@@ -1,0 +1,6 @@
+- Added to Parser.java      public static final int LBRACE     = 20;    // Left Bracket
+                            public static final int RBRACE     = 21;    // Right Bracket
+
+- Added a switch on the token ID returned by the lexer so that if the lexer returns (example) Parser.ID, we print "ID"
+
+- Added PushbackReader for proper reporting instead of lineno = -123; and column = -456;
