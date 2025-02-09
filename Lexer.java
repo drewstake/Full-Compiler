@@ -1,6 +1,7 @@
 import java.io.Reader;
 
 public class Lexer {
+    // Fields that never change.
     private final Parser yyparser;
     private final DoubleBuffer db;
     public int lineno;   // current line number
@@ -30,13 +31,13 @@ public class Lexer {
             
             char c = (char)cInt;
             
-            // Skip newlines.
+            // Skip newline characters.
             if (c == '\n') {
                 lineno++;
                 column = 1;
                 continue;
             }
-            // Skip whitespace.
+            // Skip whitespace (space, tab, carriage return).
             if (c == ' ' || c == '\t' || c == '\r') {
                 column++;
                 continue;
@@ -89,7 +90,8 @@ public class Lexer {
                     column++;
                     return Parser.COMMA;
                 default:
-                    break; // Fall through for tokens needing lookahead.
+                    // Fall through for tokens that require lookahead.
+                    break;
             }
             
             // --- Tokens requiring lookahead ---
@@ -101,30 +103,24 @@ public class Lexer {
                     return Parser.RELOP;
                 }
                 char nextChar = (char) nextInt;
-                String lexeme;
-                if (nextChar == '-') { 
-                    lexeme = "<-"; 
+                if (nextChar == '-') {
+                    yyparser.yylval = new ParserVal("<-");
                     column += 2;
-                } else if (nextChar == '=') { 
-                    lexeme = "<="; 
-                    column += 2;
-                } else if (nextChar == '>') { 
-                    lexeme = "<>"; 
-                    column += 2;
-                } else { 
-                    db.unread();
-                    lexeme = "<"; 
-                    column++;
-                }
-                yyparser.yylval = new ParserVal(lexeme);
-                if (lexeme.equals("<-"))
                     return Parser.ASSIGN;
-                else if (lexeme.equals("<="))
+                } else if (nextChar == '=') {
+                    yyparser.yylval = new ParserVal("<=");
+                    column += 2;
                     return Parser.LE;
-                else if (lexeme.equals("<>"))
+                } else if (nextChar == '>') {
+                    yyparser.yylval = new ParserVal("<>");
+                    column += 2;
                     return Parser.NEQ;
-                else
+                } else {
+                    db.unread();
+                    yyparser.yylval = new ParserVal("<");
+                    column++;
                     return Parser.RELOP;
+                }
             }
             if (c == '>') {
                 int nextInt = db.nextChar();
@@ -134,21 +130,18 @@ public class Lexer {
                     return Parser.RELOP;
                 }
                 char nextChar = (char) nextInt;
-                String lexeme;
-                if (nextChar == '=') { 
-                    lexeme = ">="; 
+                if (nextChar == '=') {
+                    yyparser.yylval = new ParserVal(">=");
                     column += 2;
-                } else { 
-                    db.unread();
-                    lexeme = ">"; 
-                    column++;
-                }
-                yyparser.yylval = new ParserVal(lexeme);
-                if (lexeme.equals(">="))
                     return Parser.GE;
-                else
+                } else {
+                    db.unread();
+                    yyparser.yylval = new ParserVal(">");
+                    column++;
                     return Parser.RELOP;
+                }
             }
+            // For a single '=' (return RELOP per test requirements).
             if (c == '=') {
                 yyparser.yylval = new ParserVal("=");
                 column++;
