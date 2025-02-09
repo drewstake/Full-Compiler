@@ -45,7 +45,7 @@ public class Parser {
                 return -1;
             }
             
-            // Retrieve the token attribute: use obj if non-null; otherwise use sval.
+            // Retrieve token attribute: if obj is null, use sval.
             String attr;
             if (yylval != null) {
                 if (yylval.obj != null)

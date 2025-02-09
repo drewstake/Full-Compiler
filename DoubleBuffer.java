@@ -1,9 +1,9 @@
 import java.io.Reader;
 
 public class DoubleBuffer {
-    private Reader in;
-    private char[] buffer1;
-    private char[] buffer2;
+    private final Reader in;
+    private final char[] buffer1;
+    private final char[] buffer2;
     private final int bufferSize = 10;
     private int currentBuffer; // 1 or 2
     private int pos;           // current position in the current buffer

@@ -1,7 +1,6 @@
 import java.io.Reader;
 
 public class Lexer {
-    // Fields that never change are marked final.
     private final Parser yyparser;
     private final DoubleBuffer db;
     public int lineno;   // current line number
@@ -31,7 +30,7 @@ public class Lexer {
             
             char c = (char)cInt;
             
-            // Skip newline characters (update line and reset column)
+            // Skip newlines.
             if (c == '\n') {
                 lineno++;
                 column = 1;
@@ -43,11 +42,11 @@ public class Lexer {
                 continue;
             }
             
-            // Record the token's starting position.
+            // Record token starting position.
             tokenLine = lineno;
             tokenCol = column;
             
-            // --- Simple single-character tokens via switch ---
+            // --- Simple single-character tokens ---
             switch (c) {
                 case '+':
                     yyparser.yylval = new ParserVal("+");
@@ -93,7 +92,7 @@ public class Lexer {
                     break; // Fall through for tokens needing lookahead.
             }
             
-            // --- Tokens that require lookahead ---
+            // --- Tokens requiring lookahead ---
             if (c == '<') {
                 int nextInt = db.nextChar();
                 if (nextInt == (char)-1) {
@@ -150,7 +149,6 @@ public class Lexer {
                 else
                     return Parser.RELOP;
             }
-            // For a single '=', return RELOP per test8 requirements.
             if (c == '=') {
                 yyparser.yylval = new ParserVal("=");
                 column++;
