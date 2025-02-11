@@ -20,6 +20,8 @@ This will create the necessary .class files.
 4. Run the Program  
 To run the program, use:  
 
-java Program <inputFile>  
+java Program tests/<inputFile>
+
+example: java Program tests/test2.minc
 
 Replace <inputFile> with the actual input file you want to use.  
