@@ -1,27 +1,27 @@
-How to Compile and Run
+# **Compilation and Execution Instructions**  
 
-1. Extract the ZIP File  
-Unzip the file and place the extracted folder anywhere you want.  
+## **1. Extract the ZIP File**  
+Extract the contents of the ZIP file into a directory of your choice.  
 
-2. Open a Terminal  
-Go to the folder where you extracted the files by using:  
+## **2. Open a Terminal**  
+Navigate to the extracted project directory:  
 
-cd /path/to/extracted/project  
+bash
+cd /path/to/extracted/project
 
-Replace /path/to/extracted/project with the actual folder location.  
 
-3. Compile the Java Files  
-Run this command to compile all the Java files:  
+## **3. Compile the Program**  
+Run the following command to compile all Java source files:  
 
-javac *.java  
+bash
+javac *.java
 
-This will create the necessary .class files.  
 
-4. Run the Program  
-To run the program, use:  
+## **4. Run the Program**  
+Execute the program using:  
 
-java Program <inputFile>  
+bash
+java Program <inputFile>
 
-Replace <inputFile> with the actual input file you want to use.  
 
-If something doesn't work, check that you're in the right folder and that all Java files compiled correctly.  
+Replace <inputFile> with the required input file.  
