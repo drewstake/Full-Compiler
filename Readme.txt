@@ -23,5 +23,3 @@ To run the program, use:
 java Program <inputFile>  
 
 Replace <inputFile> with the actual input file you want to use.  
-
-If something doesn't work, check that you're in the right folder and that all Java files compiled correctly.  
