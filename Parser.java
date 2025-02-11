@@ -1,30 +1,28 @@
 public class Parser {
-    // Token definitions – these numbers must match your assignment.
-    public static final int OP     = 10;    // +, -, *, /
-    public static final int RELOP  = 11;    // relational operators (<, >, =, <>, <=, >=)
-    public static final int LPAREN = 12;    // (
-    public static final int RPAREN = 13;    // )
-    public static final int SEMI   = 14;    // ;
-    public static final int COMMA  = 15;    // ,
-    public static final int INT    = 16;    // "int"
-    public static final int NUM    = 17;    // number literal
-    public static final int ID     = 18;    // identifier
-    public static final int PRINT  = 19;    // "print"
-    public static final int LBRACE = 20;    // {
-    public static final int RBRACE = 21;    // }
-    // Additional keywords:
-    public static final int IF     = 22;    // "if"
-    public static final int ELSE   = 23;    // "else"
-    public static final int WHILE  = 24;    // "while"
-    public static final int VOID   = 25;    // "void"
-    public static final int ASSIGN = 26;    // "<-"
-    public static final int NEQ    = 28;    // "<>"
-    public static final int LE     = 29;    // "<="
-    public static final int GE     = 30;    // ">="
+    public static final int OP     = 10;
+    public static final int RELOP  = 11;
+    public static final int LPAREN = 12;
+    public static final int RPAREN = 13;
+    public static final int SEMI   = 14;
+    public static final int COMMA  = 15;
+    public static final int INT    = 16;
+    public static final int NUM    = 17;
+    public static final int ID     = 18;
+    public static final int PRINT  = 19;
+    public static final int LBRACE = 20;
+    public static final int RBRACE = 21;
+    public static final int IF     = 22;
+    public static final int ELSE   = 23;
+    public static final int WHILE  = 24;
+    public static final int VOID   = 25;
+    public static final int ASSIGN = 26;
+    public static final int NEQ    = 28;
+    public static final int LE     = 29;
+    public static final int GE     = 30;
     
     private final Lexer lexer;
     private final Compiler compiler;
-    public ParserVal yylval; // set by the lexer
+    public ParserVal yylval;
     
     public Parser(java.io.Reader r, Compiler compiler) throws Exception {
         this.compiler = compiler;
@@ -45,7 +43,6 @@ public class Parser {
                 return -1;
             }
             
-            // Retrieve token attribute: if obj is null, use sval.
             String attr;
             if (yylval != null) {
                 if (yylval.obj != null)
@@ -75,7 +72,6 @@ public class Parser {
                 case OP -> "OP";
                 case SEMI -> "SEMI";
                 case COMMA -> "COMMA";
-                // Map all relational operator tokens to "RELOP"
                 case RELOP, NEQ, LE, GE -> "RELOP";
                 case LBRACE -> "BEGIN";
                 case RBRACE -> "END";

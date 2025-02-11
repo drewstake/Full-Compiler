@@ -5,9 +5,9 @@ public class DoubleBuffer {
     private final char[] buffer1;
     private final char[] buffer2;
     private final int bufferSize = 10;
-    private int currentBuffer; // 1 or 2
-    private int pos;           // current position in the current buffer
-    private int count;         // number of characters in the current buffer
+    private int currentBuffer;
+    private int pos;
+    private int count;
     private boolean eof = false;
     
     public DoubleBuffer(Reader in) throws Exception {
@@ -33,7 +33,6 @@ public class DoubleBuffer {
     
     public char nextChar() throws Exception {
         if (pos >= count) {
-            // Switch buffers.
             currentBuffer = (currentBuffer == 1) ? 2 : 1;
             fillBuffer();
             if (eof)

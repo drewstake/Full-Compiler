@@ -1,13 +1,10 @@
 import java.io.Reader;
 
 public class Lexer {
-    // Fields that never change.
     private final Parser yyparser;
     private final DoubleBuffer db;
-    public int lineno;   // current line number
-    public int column;   // current column number
-
-    // Fields to record the token's starting position.
+    public int lineno;
+    public int column;
     public int tokenLine;
     public int tokenCol;
     
@@ -22,32 +19,27 @@ public class Lexer {
         return -1;
     }
     
-    // yylex() returns a token number and sets yyparser.yylval.
     public int yylex() throws Exception {
         while (true) {
             int cInt = db.nextChar();
             if (cInt == (char)-1)
-                return 0;  // EOF
+                return 0;
             
-            char c = (char)cInt;
+            char c = (char) cInt;
             
-            // Skip newline characters.
             if (c == '\n') {
                 lineno++;
                 column = 1;
                 continue;
             }
-            // Skip whitespace (space, tab, carriage return).
             if (c == ' ' || c == '\t' || c == '\r') {
                 column++;
                 continue;
             }
             
-            // Record token starting position.
             tokenLine = lineno;
             tokenCol = column;
             
-            // --- Simple single-character tokens ---
             switch (c) {
                 case '+':
                     yyparser.yylval = new ParserVal("+");
@@ -90,11 +82,9 @@ public class Lexer {
                     column++;
                     return Parser.COMMA;
                 default:
-                    // Fall through for tokens that require lookahead.
                     break;
             }
             
-            // --- Tokens requiring lookahead ---
             if (c == '<') {
                 int nextInt = db.nextChar();
                 if (nextInt == (char)-1) {
@@ -141,14 +131,12 @@ public class Lexer {
                     return Parser.RELOP;
                 }
             }
-            // For a single '=' (return RELOP per test requirements).
             if (c == '=') {
                 yyparser.yylval = new ParserVal("=");
                 column++;
                 return Parser.RELOP;
             }
             
-            // --- Numbers ---
             if (Character.isDigit(c)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(c);
@@ -176,9 +164,9 @@ public class Lexer {
                         } else {
                             isFloat = true;
                             sb.append('.');
-                            column++; // for dot
+                            column++;
                             sb.append(afterDot);
-                            column++; // for digit after dot
+                            column++;
                         }
                     } else {
                         db.unread();
@@ -189,7 +177,6 @@ public class Lexer {
                 return Parser.NUM;
             }
             
-            // --- Identifiers and Keywords ---
             if (Character.isLetter(c)) {
                 StringBuilder sb = new StringBuilder();
                 sb.append(c);
@@ -232,7 +219,6 @@ public class Lexer {
                 }
             }
             
-            // --- Unexpected Characters ---
             yyparser.yylval = new ParserVal("Unexpected: " + c);
             column++;
             return Fail();
