@@ -1,17 +1,31 @@
-# Compilation Instructions
+Here's a **concise and professional** version of your README, optimized for grading:
 
-1. Open a terminal (or command prompt) and navigate to the project directory (the folder containing all the .java files).
+---
 
-2. Compile the program by running:
+# **Compilation and Execution Instructions**  
 
-       javac *.java
+## **1. Extract the ZIP File**  
+Extract the contents of the ZIP file into a directory of your choice.  
 
-   This command compiles all Java source files and generates the corresponding .class files.
+## **2. Open a Terminal**  
+Navigate to the extracted project directory:  
 
-3. (Optional) To run the program, execute:
+```bash
+cd /path/to/extracted/project
+```
 
-       java Program <inputFile>
+## **3. Compile the Program**  
+Run the following command to compile all Java source files:  
 
-   For example, if you want to run the program on "tests/test8.minc", use:
+```bash
+javac *.java
+```
 
-       java Program tests/test8.minc
+## **4. Run the Program**  
+Execute the program using:  
+
+```bash
+java Program <inputFile>
+```
+
+Replace `<inputFile>` with the required input file.  
