@@ -1,48 +1,51 @@
 import java.io.Reader;
 
 public class DoubleBuffer {
-    private final Reader in;
-    private final char[] buffer1;
-    private final char[] buffer2;
+    private final Reader reader;
+    private final char[] buf1;
+    private final char[] buf2;
     private final int bufferSize = 10;
-    private int currentBuffer;
-    private int pos;
-    private int count;
+    private int activeBuffer;
+    private int bufIndex;
+    private int bufCount;
     private boolean eof = false;
     
-    public DoubleBuffer(Reader in) throws Exception {
-        this.in = in;
-        buffer1 = new char[bufferSize];
-        buffer2 = new char[bufferSize];
-        currentBuffer = 1;
+    public DoubleBuffer(Reader reader) throws Exception {
+        this.reader = reader;
+        buf1 = new char[bufferSize];
+        buf2 = new char[bufferSize];
+        activeBuffer = 1;
         fillBuffer();
     }
     
+    // fill the current buffer with new chars
     private void fillBuffer() throws Exception {
-        if (currentBuffer == 1) {
-            count = in.read(buffer1, 0, bufferSize);
+        if (activeBuffer == 1) {
+            bufCount = reader.read(buf1, 0, bufferSize);
         } else {
-            count = in.read(buffer2, 0, bufferSize);
+            bufCount = reader.read(buf2, 0, bufferSize);
         }
-        if (count == -1) {
+        if (bufCount == -1) {
             eof = true;
-            count = 0;
+            bufCount = 0;
         }
-        pos = 0;
+        bufIndex = 0;
     }
     
-    public char nextChar() throws Exception {
-        if (pos >= count) {
-            currentBuffer = (currentBuffer == 1) ? 2 : 1;
+    // get the next character from our current buffer
+    public char getNextChar() throws Exception {
+        if (bufIndex >= bufCount) {
+            activeBuffer = (activeBuffer == 1) ? 2 : 1;
             fillBuffer();
             if (eof)
-                return (char)-1;
+                return (char) -1;
         }
-        return (currentBuffer == 1) ? buffer1[pos++] : buffer2[pos++];
+        return (activeBuffer == 1) ? buf1[bufIndex++] : buf2[bufIndex++];
     }
     
-    public void unread() {
-        if (pos > 0)
-            pos--;
+    // move one char back in the buffer
+    public void goBack() {
+        if (bufIndex > 0)
+            bufIndex--;
     }
 }

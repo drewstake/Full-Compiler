@@ -25,61 +25,102 @@ public class Parser {
     public ParserVal yylval;
     
     public Parser(java.io.Reader r, Compiler compiler) throws Exception {
+        // init the parser with the reader and a compiler ref
         this.compiler = compiler;
         this.lexer = new Lexer(r, this);
     }
     
     public int yyparse() throws Exception {
         while (true) {
-            int token = lexer.yylex();
+            int token = lexer.getToken();
             if (token == 0) {
                 System.out.println("Success!");
                 return 0;
             }
             if (token == -1) {
-                int errLine = lexer.tokenLine;
-                int errCol = lexer.tokenCol;
+                int errLine = lexer.curLine;
+                int errCol = lexer.curCol;
                 System.out.println("Error! There is a lexical error at " + errLine + ":" + errCol + ".");
                 return -1;
             }
             
-            String attr;
+            String attribute;
             if (yylval != null) {
                 if (yylval.obj != null)
-                    attr = yylval.obj.toString();
+                    attribute = yylval.obj.toString();
                 else if (yylval.sval != null)
-                    attr = yylval.sval;
+                    attribute = yylval.sval;
                 else
-                    attr = "";
+                    attribute = "";
             } else {
-                attr = "";
+                attribute = "";
             }
             
-            int line = lexer.tokenLine;
-            int col = lexer.tokenCol;
+            int line = lexer.curLine;
+            int col = lexer.curCol;
             
-            String tokenname = switch (token) {
-                case ID -> "ID";
-                case INT -> "INT";
-                case PRINT -> "PRINT";
-                case IF -> "IF";
-                case ELSE -> "ELSE";
-                case WHILE -> "WHILE";
-                case VOID -> "VOID";
-                case LPAREN -> "LPAREN";
-                case RPAREN -> "RPAREN";
-                case ASSIGN -> "ASSIGN";
-                case OP -> "OP";
-                case SEMI -> "SEMI";
-                case COMMA -> "COMMA";
-                case RELOP, NEQ, LE, GE -> "RELOP";
-                case LBRACE -> "BEGIN";
-                case RBRACE -> "END";
-                case NUM -> "NUM";
-                default -> "UNKNOWN";
-            };
+            String tokenname = "";
+            switch (token) {
+                case ID:
+                    tokenname = "ID";
+                    break;
+                case INT:
+                    tokenname = "INT";
+                    break;
+                case PRINT:
+                    tokenname = "PRINT";
+                    break;
+                case IF:
+                    tokenname = "IF";
+                    break;
+                case ELSE:
+                    tokenname = "ELSE";
+                    break;
+                case WHILE:
+                    tokenname = "WHILE";
+                    break;
+                case VOID:
+                    tokenname = "VOID";
+                    break;
+                case LPAREN:
+                    tokenname = "LPAREN";
+                    break;
+                case RPAREN:
+                    tokenname = "RPAREN";
+                    break;
+                case ASSIGN:
+                    tokenname = "ASSIGN";
+                    break;
+                case OP:
+                    tokenname = "OP";
+                    break;
+                case SEMI:
+                    tokenname = "SEMI";
+                    break;
+                case COMMA:
+                    tokenname = "COMMA";
+                    break;
+                case RELOP:
+                case NEQ:
+                case LE:
+                case GE:
+                    tokenname = "RELOP";
+                    break;
+                case LBRACE:
+                    tokenname = "BEGIN";
+                    break;
+                case RBRACE:
+                    tokenname = "END";
+                    break;
+                case NUM:
+                    tokenname = "NUM";
+                    break;
+                default:
+                    tokenname = "UNKNOWN";
+                    break;
+            }
             
-            System.out.println("<" + tokenname + ", token-attr:\"" + attr + "\", " + line + ":" + col + ">");
+            System.out.println("<" + tokenname + ", token-attr:\"" + attribute + "\", " + line + ":" + col + ">");
         }
     }
 }
