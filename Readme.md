@@ -1,7 +1,3 @@
-Here's a **concise and professional** version of your README, optimized for grading:
-
----
-
 # **Compilation and Execution Instructions**  
 
 ## **1. Extract the ZIP File**  
